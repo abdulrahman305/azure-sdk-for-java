@@ -14,7 +14,6 @@ import io.clientcore.core.http.models.Response;
 import io.clientcore.core.instrumentation.logging.ClientLogger;
 import io.clientcore.core.models.binarydata.BinaryData;
 
-import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -65,11 +64,15 @@ public class OAuthBearerTokenAuthenticationPolicy extends HttpCredentialPolicy {
         httpRequest.getHeaders().set(HttpHeaderName.AUTHORIZATION, BEARER + " " + token.getToken());
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalStateException If the request is not using {@code HTTPS}.
+     */
     @Override
     public Response<BinaryData> process(HttpRequest httpRequest, HttpPipelineNextPolicy next) {
         if (!"https".equals(httpRequest.getUri().getScheme())) {
-            throw LOGGER.logThrowableAsError(
-                new RuntimeException("Token credentials require a URL using the HTTPS protocol scheme"));
+            throw LOGGER.throwableAtError()
+                .log("Token credentials require a URL using the HTTPS protocol scheme", IllegalStateException::new);
         }
 
         HttpPipelineNextPolicy nextPolicy = next.copy();
@@ -82,11 +85,7 @@ public class OAuthBearerTokenAuthenticationPolicy extends HttpCredentialPolicy {
         if (httpResponse.getStatusCode() == 401 && authHeader != null) {
             if (authorizeRequestOnChallenge(httpRequest, httpResponse)) {
                 // body needs to be closed or read to the end to release the connection
-                try {
-                    httpResponse.close();
-                } catch (IOException e) {
-                    throw LOGGER.logThrowableAsError(new RuntimeException(e));
-                }
+                httpResponse.close();
                 return nextPolicy.process();
             } else {
                 return httpResponse;

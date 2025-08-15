@@ -10,7 +10,6 @@
 
   <modules>
     <module>common/perf-test-core</module>
-    <module>eng/code-quality-reports</module>
     <module>sdk/advisor</module>
     <module>sdk/agrifood</module>
     <module>sdk/ai</module>
@@ -43,6 +42,7 @@
     <module>sdk/changeanalysis</module>
     <module>sdk/chaos</module>
     <module>sdk/clientcore</module>
+    <module>sdk/cloudhealth</module>
     <module>sdk/cognitiveservices</module>
     <module>sdk/commerce</module>
     <module>sdk/communication</module>
@@ -56,6 +56,7 @@
     <module>sdk/containerorchestratorruntime</module>
     <module>sdk/containerregistry</module>
     <module>sdk/containerservicefleet</module>
+    <module>sdk/containerservicesafeguards</module>
     <module>sdk/contentsafety</module>
     <module>sdk/core</module>
     <module>sdk/core-v2</module>
@@ -180,6 +181,7 @@
     <module>sdk/personalizer</module>
     <module>sdk/pineconevectordb</module>
     <module>sdk/planetarycomputer</module>
+    <module>sdk/playwright</module>
     <module>sdk/playwrighttesting</module>
     <module>sdk/policyinsights</module>
     <module>sdk/portalservices</module>
@@ -207,6 +209,7 @@
     <module>sdk/resourcehealth</module>
     <module>sdk/resourcemanager</module>
     <module>sdk/resourcemover</module>
+    <module>sdk/resources</module>
     <module>sdk/schemaregistry</module>
     <module>sdk/scvmm</module>
     <module>sdk/search</module>
@@ -230,6 +233,7 @@
     <module>sdk/sqlvirtualmachine</module>
     <module>sdk/standbypool</module>
     <module>sdk/storage</module>
+    <module>sdk/storage-v2</module>
     <module>sdk/storageactions</module>
     <module>sdk/storagecache</module>
     <module>sdk/storagemover</module>

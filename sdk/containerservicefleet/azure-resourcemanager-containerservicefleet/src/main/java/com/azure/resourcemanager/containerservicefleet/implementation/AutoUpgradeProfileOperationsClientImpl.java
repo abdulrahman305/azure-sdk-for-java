@@ -62,7 +62,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
      * be used by the proxy service to perform REST calls.
      */
     @Host("{endpoint}")
-    @ServiceInterface(name = "ContainerServiceFlee")
+    @ServiceInterface(name = "ContainerServiceFleetManagementClientAutoUpgradeProfileOperations")
     public interface AutoUpgradeProfileOperationsService {
         @Headers({ "Content-Type: application/json" })
         @Post("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/fleets/{fleetName}/autoUpgradeProfiles/{autoUpgradeProfileName}/generateUpdateRun")
@@ -86,7 +86,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -126,7 +126,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -168,7 +168,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -210,7 +210,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -231,7 +231,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -251,7 +251,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -272,7 +272,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -290,7 +290,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.
@@ -307,7 +307,7 @@ public final class AutoUpgradeProfileOperationsClientImpl implements AutoUpgrade
     }
 
     /**
-     * A long-running resource action.
+     * Generates an update run for a given auto upgrade profile.
      * 
      * @param resourceGroupName The name of the resource group. The name is case insensitive.
      * @param fleetName The name of the Fleet resource.

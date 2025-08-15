@@ -76,7 +76,7 @@ public final class IndexesImpl {
      * REST calls.
      */
     @Host("{endpoint}")
-    @ServiceInterface(name = "AIProjectClientIndex")
+    @ServiceInterface(name = "AIProjectClientIndexes")
     public interface IndexesService {
         @Get("/indexes/{name}/versions")
         @ExpectedResponses({ 200 })
@@ -148,8 +148,7 @@ public final class IndexesImpl {
         @UnexpectedResponseExceptionType(HttpResponseException.class)
         Mono<Response<Void>> deleteIndexVersion(@HostParam("endpoint") String endpoint,
             @QueryParam("api-version") String apiVersion, @PathParam("name") String name,
-            @PathParam("version") String version, @HeaderParam("Accept") String accept, RequestOptions requestOptions,
-            Context context);
+            @PathParam("version") String version, RequestOptions requestOptions, Context context);
 
         @Delete("/indexes/{name}/versions/{version}")
         @ExpectedResponses({ 204 })
@@ -159,8 +158,7 @@ public final class IndexesImpl {
         @UnexpectedResponseExceptionType(HttpResponseException.class)
         Response<Void> deleteIndexVersionSync(@HostParam("endpoint") String endpoint,
             @QueryParam("api-version") String apiVersion, @PathParam("name") String name,
-            @PathParam("version") String version, @HeaderParam("Accept") String accept, RequestOptions requestOptions,
-            Context context);
+            @PathParam("version") String version, RequestOptions requestOptions, Context context);
 
         @Patch("/indexes/{name}/versions/{version}")
         @ExpectedResponses({ 200, 201 })
@@ -171,7 +169,7 @@ public final class IndexesImpl {
         Mono<Response<BinaryData>> createOrUpdateIndexVersion(@HostParam("endpoint") String endpoint,
             @QueryParam("api-version") String apiVersion, @PathParam("name") String name,
             @HeaderParam("Content-Type") String contentType, @PathParam("version") String version,
-            @HeaderParam("Accept") String accept, @BodyParam("application/merge-patch+json") BinaryData body,
+            @HeaderParam("Accept") String accept, @BodyParam("application/merge-patch+json") BinaryData index,
             RequestOptions requestOptions, Context context);
 
         @Patch("/indexes/{name}/versions/{version}")
@@ -183,7 +181,7 @@ public final class IndexesImpl {
         Response<BinaryData> createOrUpdateIndexVersionSync(@HostParam("endpoint") String endpoint,
             @QueryParam("api-version") String apiVersion, @PathParam("name") String name,
             @HeaderParam("Content-Type") String contentType, @PathParam("version") String version,
-            @HeaderParam("Accept") String accept, @BodyParam("application/merge-patch+json") BinaryData body,
+            @HeaderParam("Accept") String accept, @BodyParam("application/merge-patch+json") BinaryData index,
             RequestOptions requestOptions, Context context);
 
         @Get("{nextLink}")
@@ -603,9 +601,8 @@ public final class IndexesImpl {
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<Void>> deleteIndexVersionWithResponseAsync(String name, String version,
         RequestOptions requestOptions) {
-        final String accept = "application/json";
         return FluxUtil.withContext(context -> service.deleteIndexVersion(this.client.getEndpoint(),
-            this.client.getServiceVersion().getVersion(), name, version, accept, requestOptions, context));
+            this.client.getServiceVersion().getVersion(), name, version, requestOptions, context));
     }
 
     /**
@@ -622,9 +619,8 @@ public final class IndexesImpl {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<Void> deleteIndexVersionWithResponse(String name, String version, RequestOptions requestOptions) {
-        final String accept = "application/json";
         return service.deleteIndexVersionSync(this.client.getEndpoint(), this.client.getServiceVersion().getVersion(),
-            name, version, accept, requestOptions, Context.NONE);
+            name, version, requestOptions, Context.NONE);
     }
 
     /**
@@ -664,8 +660,8 @@ public final class IndexesImpl {
      * </pre>
      * 
      * @param name The name of the resource.
-     * @param version The specific version id of the Index to create or replace.
-     * @param body The definition of the Index to create or update.
+     * @param version The specific version id of the Index to create or update.
+     * @param index The Index to create or update.
      * @param requestOptions The options to configure the HTTP request before HTTP client sends it.
      * @throws HttpResponseException thrown if the request is rejected by server.
      * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
@@ -675,11 +671,11 @@ public final class IndexesImpl {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<BinaryData>> createOrUpdateIndexVersionWithResponseAsync(String name, String version,
-        BinaryData body, RequestOptions requestOptions) {
+        BinaryData index, RequestOptions requestOptions) {
         final String contentType = "application/merge-patch+json";
         final String accept = "application/json";
         return FluxUtil.withContext(context -> service.createOrUpdateIndexVersion(this.client.getEndpoint(),
-            this.client.getServiceVersion().getVersion(), name, contentType, version, accept, body, requestOptions,
+            this.client.getServiceVersion().getVersion(), name, contentType, version, accept, index, requestOptions,
             context));
     }
 
@@ -720,8 +716,8 @@ public final class IndexesImpl {
      * </pre>
      * 
      * @param name The name of the resource.
-     * @param version The specific version id of the Index to create or replace.
-     * @param body The definition of the Index to create or update.
+     * @param version The specific version id of the Index to create or update.
+     * @param index The Index to create or update.
      * @param requestOptions The options to configure the HTTP request before HTTP client sends it.
      * @throws HttpResponseException thrown if the request is rejected by server.
      * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
@@ -730,12 +726,12 @@ public final class IndexesImpl {
      * @return index resource Definition along with {@link Response}.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<BinaryData> createOrUpdateIndexVersionWithResponse(String name, String version, BinaryData body,
+    public Response<BinaryData> createOrUpdateIndexVersionWithResponse(String name, String version, BinaryData index,
         RequestOptions requestOptions) {
         final String contentType = "application/merge-patch+json";
         final String accept = "application/json";
         return service.createOrUpdateIndexVersionSync(this.client.getEndpoint(),
-            this.client.getServiceVersion().getVersion(), name, contentType, version, accept, body, requestOptions,
+            this.client.getServiceVersion().getVersion(), name, contentType, version, accept, index, requestOptions,
             Context.NONE);
     }
 

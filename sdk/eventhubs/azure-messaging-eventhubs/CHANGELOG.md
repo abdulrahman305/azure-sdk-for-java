@@ -1,16 +1,36 @@
 # Release History
 
-## 5.21.0-beta.2 (Unreleased)
+## 5.21.0 (2025-08-11)
 
 ### Features Added
 
-- Updated the partition receiver to retry on terminal completion signal instead of sending it downstream. ([45400](https://github.com/Azure/azure-sdk-for-java/pull/45400))
-
-### Breaking Changes
-
-### Bugs Fixed
+- Added support for geo-replication capability. ([44272](https://github.com/Azure/azure-sdk-for-java/pull/44272))
 
 ### Other Changes
+
+- The `getOffset()` method, which returns a `Long`, has been deprecated in `EventData`, `SystemProperties`, and `Checkpoint`. Replaced with `getOffsetString()`.
+
+#### Dependency Updates
+
+- Upgraded `azure-core` from `1.55.4` to version `1.56.0`.
+- Upgraded `azure-core-amqp` from `2.10.2` to version `2.11.0`.
+
+## 5.20.5 (2025-07-24)
+
+### Other Changes
+
+#### Dependency Updates
+
+- Upgraded `azure-core-amqp` from `2.10.0` to version `2.10.2`.
+
+## 5.20.4 (2025-06-19)
+
+### Other Changes
+
+#### Dependency Updates
+
+- Upgraded `azure-core` from `1.55.3` to version `1.55.4`.
+- Upgraded `azure-core-amqp` from `2.9.16` to version `2.10.0`.
 
 ## 5.20.3 (2025-04-16)
 
@@ -46,7 +66,7 @@
 
 ### Features Added
 
-- Added support for geo-replication capability. ([#44272](https://github.com/Azure/azure-sdk-for-java/pull/44272))
+- Added support for geo-replication capability. ([44272](https://github.com/Azure/azure-sdk-for-java/pull/44272))
 
 ### Other Changes
 

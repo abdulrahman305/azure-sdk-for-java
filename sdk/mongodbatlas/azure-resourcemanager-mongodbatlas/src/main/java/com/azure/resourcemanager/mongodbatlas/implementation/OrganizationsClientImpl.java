@@ -37,6 +37,7 @@ import com.azure.core.util.polling.SyncPoller;
 import com.azure.resourcemanager.mongodbatlas.fluent.OrganizationsClient;
 import com.azure.resourcemanager.mongodbatlas.fluent.models.OrganizationResourceInner;
 import com.azure.resourcemanager.mongodbatlas.implementation.models.OrganizationResourceListResult;
+import com.azure.resourcemanager.mongodbatlas.models.OrganizationResourceUpdate;
 import java.nio.ByteBuffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -71,7 +72,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      * service to perform REST calls.
      */
     @Host("{endpoint}")
-    @ServiceInterface(name = "MongoDBAtlasManageme")
+    @ServiceInterface(name = "MongoDBAtlasManagementClientOrganizations")
     public interface OrganizationsService {
         @Headers({ "Content-Type: application/json" })
         @Get("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/MongoDB.Atlas/organizations/{organizationName}")
@@ -120,7 +121,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
             @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("organizationName") String organizationName, @HeaderParam("Content-Type") String contentType,
-            @HeaderParam("Accept") String accept, @BodyParam("application/json") OrganizationResourceInner properties,
+            @HeaderParam("Accept") String accept, @BodyParam("application/json") OrganizationResourceUpdate properties,
             Context context);
 
         @Patch("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/MongoDB.Atlas/organizations/{organizationName}")
@@ -130,28 +131,26 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
             @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("organizationName") String organizationName, @HeaderParam("Content-Type") String contentType,
-            @HeaderParam("Accept") String accept, @BodyParam("application/json") OrganizationResourceInner properties,
+            @HeaderParam("Accept") String accept, @BodyParam("application/json") OrganizationResourceUpdate properties,
             Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({ "Accept: application/json;q=0.9", "Content-Type: application/json" })
         @Delete("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/MongoDB.Atlas/organizations/{organizationName}")
         @ExpectedResponses({ 202, 204 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Mono<Response<Flux<ByteBuffer>>> delete(@HostParam("endpoint") String endpoint,
             @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId,
             @PathParam("resourceGroupName") String resourceGroupName,
-            @PathParam("organizationName") String organizationName, @HeaderParam("Accept") String accept,
-            Context context);
+            @PathParam("organizationName") String organizationName, Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({ "Accept: application/json;q=0.9", "Content-Type: application/json" })
         @Delete("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/MongoDB.Atlas/organizations/{organizationName}")
         @ExpectedResponses({ 202, 204 })
         @UnexpectedResponseExceptionType(ManagementException.class)
         Response<BinaryData> deleteSync(@HostParam("endpoint") String endpoint,
             @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId,
             @PathParam("resourceGroupName") String resourceGroupName,
-            @PathParam("organizationName") String organizationName, @HeaderParam("Accept") String accept,
-            Context context);
+            @PathParam("organizationName") String organizationName, Context context);
 
         @Headers({ "Content-Type: application/json" })
         @Get("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/MongoDB.Atlas/organizations")
@@ -588,7 +587,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<Flux<ByteBuffer>>> updateWithResponseAsync(String resourceGroupName, String organizationName,
-        OrganizationResourceInner properties) {
+        OrganizationResourceUpdate properties) {
         if (this.client.getEndpoint() == null) {
             return Mono.error(
                 new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
@@ -632,7 +631,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Response<BinaryData> updateWithResponse(String resourceGroupName, String organizationName,
-        OrganizationResourceInner properties) {
+        OrganizationResourceUpdate properties) {
         if (this.client.getEndpoint() == null) {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException(
@@ -678,7 +677,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Response<BinaryData> updateWithResponse(String resourceGroupName, String organizationName,
-        OrganizationResourceInner properties, Context context) {
+        OrganizationResourceUpdate properties, Context context) {
         if (this.client.getEndpoint() == null) {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException(
@@ -723,7 +722,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.LONG_RUNNING_OPERATION)
     private PollerFlux<PollResult<OrganizationResourceInner>, OrganizationResourceInner>
-        beginUpdateAsync(String resourceGroupName, String organizationName, OrganizationResourceInner properties) {
+        beginUpdateAsync(String resourceGroupName, String organizationName, OrganizationResourceUpdate properties) {
         Mono<Response<Flux<ByteBuffer>>> mono
             = updateWithResponseAsync(resourceGroupName, organizationName, properties);
         return this.client.<OrganizationResourceInner, OrganizationResourceInner>getLroResult(mono,
@@ -744,7 +743,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.LONG_RUNNING_OPERATION)
     public SyncPoller<PollResult<OrganizationResourceInner>, OrganizationResourceInner>
-        beginUpdate(String resourceGroupName, String organizationName, OrganizationResourceInner properties) {
+        beginUpdate(String resourceGroupName, String organizationName, OrganizationResourceUpdate properties) {
         Response<BinaryData> response = updateWithResponse(resourceGroupName, organizationName, properties);
         return this.client.<OrganizationResourceInner, OrganizationResourceInner>getLroResult(response,
             OrganizationResourceInner.class, OrganizationResourceInner.class, Context.NONE);
@@ -764,7 +763,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.LONG_RUNNING_OPERATION)
     public SyncPoller<PollResult<OrganizationResourceInner>, OrganizationResourceInner> beginUpdate(
-        String resourceGroupName, String organizationName, OrganizationResourceInner properties, Context context) {
+        String resourceGroupName, String organizationName, OrganizationResourceUpdate properties, Context context) {
         Response<BinaryData> response = updateWithResponse(resourceGroupName, organizationName, properties, context);
         return this.client.<OrganizationResourceInner, OrganizationResourceInner>getLroResult(response,
             OrganizationResourceInner.class, OrganizationResourceInner.class, context);
@@ -783,7 +782,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<OrganizationResourceInner> updateAsync(String resourceGroupName, String organizationName,
-        OrganizationResourceInner properties) {
+        OrganizationResourceUpdate properties) {
         return beginUpdateAsync(resourceGroupName, organizationName, properties).last()
             .flatMap(this.client::getLroFinalResultOrError);
     }
@@ -801,7 +800,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public OrganizationResourceInner update(String resourceGroupName, String organizationName,
-        OrganizationResourceInner properties) {
+        OrganizationResourceUpdate properties) {
         return beginUpdate(resourceGroupName, organizationName, properties).getFinalResult();
     }
 
@@ -819,7 +818,7 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public OrganizationResourceInner update(String resourceGroupName, String organizationName,
-        OrganizationResourceInner properties, Context context) {
+        OrganizationResourceUpdate properties, Context context) {
         return beginUpdate(resourceGroupName, organizationName, properties, context).getFinalResult();
     }
 
@@ -852,10 +851,9 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
             return Mono
                 .error(new IllegalArgumentException("Parameter organizationName is required and cannot be null."));
         }
-        final String accept = "application/json";
         return FluxUtil
             .withContext(context -> service.delete(this.client.getEndpoint(), this.client.getApiVersion(),
-                this.client.getSubscriptionId(), resourceGroupName, organizationName, accept, context))
+                this.client.getSubscriptionId(), resourceGroupName, organizationName, context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
@@ -889,9 +887,8 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException("Parameter organizationName is required and cannot be null."));
         }
-        final String accept = "application/json";
         return service.deleteSync(this.client.getEndpoint(), this.client.getApiVersion(),
-            this.client.getSubscriptionId(), resourceGroupName, organizationName, accept, Context.NONE);
+            this.client.getSubscriptionId(), resourceGroupName, organizationName, Context.NONE);
     }
 
     /**
@@ -926,9 +923,8 @@ public final class OrganizationsClientImpl implements OrganizationsClient {
             throw LOGGER.atError()
                 .log(new IllegalArgumentException("Parameter organizationName is required and cannot be null."));
         }
-        final String accept = "application/json";
         return service.deleteSync(this.client.getEndpoint(), this.client.getApiVersion(),
-            this.client.getSubscriptionId(), resourceGroupName, organizationName, accept, context);
+            this.client.getSubscriptionId(), resourceGroupName, organizationName, context);
     }
 
     /**

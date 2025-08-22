@@ -13,15 +13,15 @@
   <name>Spring Cloud Azure App Configuration Config</name>
   <description>Integration of Spring Cloud Config and Azure App Configuration Service</description>
   <properties>
-    <javadocDoclet></javadocDoclet>
-    <javadocDocletOptions></javadocDocletOptions>
+    <javadocDoclet/>
+    <javadocDocletOptions/>
     <spotless.skip>true</spotless.skip>
   </properties>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
-      <version>3.5.4</version> <!-- {x-version-update;springboot3_org.springframework.boot:spring-boot-autoconfigure;external_dependency} -->
+      <version>3.5.5</version> <!-- {x-version-update;springboot3_org.springframework.boot:spring-boot-autoconfigure;external_dependency} -->
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -54,7 +54,7 @@
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-data-appconfiguration</artifactId>
-      <version>1.8.2</version> <!-- {x-version-update;com.azure:azure-data-appconfiguration;dependency} -->
+      <version>1.8.3</version> <!-- {x-version-update;com.azure:azure-data-appconfiguration;dependency} -->
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
